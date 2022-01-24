@@ -6,23 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Met API</title>
 
-    <script>
-    const getData = async () => {
-        console.log("Querying the system. Please stand by...");
-        const request = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/objects/436121');
-        const metData = await request.json();
-        return metData;
-    }
-    getData()
-        .then(metData => {
-            console.log("Here's the API data you requested: ", metData);
-            document.getElementById("title").innerText = '"' + metData.title + '"';
-            document.getElementById("artist").innerText = metData.artistDisplayName + ", " + metData.objectDate;
-            document.getElementById("painting").innerHTML = `<img src="${metData.primaryImageSmall}">` ;
-        });
-    </script>
-    <style>
-        
+<!--Easier to not use separate JS file for single page API-->
+<script>
+const getData = async () => {
+    console.log("Querying the system. Please stand by...");
+    const request = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/objects/436121');
+    const metData = await request.json();
+    return metData;
+}
+getData()
+    .then(metData => {
+        console.log("Here's the API data you requested: ", metData); // sanity check
+        document.getElementById("title").innerText = '"' + metData.title + '"'; // update id=title with title data
+        document.getElementById("artist").innerText = metData.artistDisplayName + ", " + metData.objectDate;
+        document.getElementById("painting").innerHTML = `<img src="${metData.primaryImageSmall}">` ;
+    });
+</script>
+<style>
 h1 {
     text-align: center;    
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -31,27 +31,54 @@ p {
     text-align: center;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
+a {
+    color: brown;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bold;   
+}
+a:hover {
+    color: red;
+}
 #title {
     font-weight: bold;
 }
 #container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#nav {
+    display: flex;
+    z-index: 999;
+    position: relative;
+    justify-content: space-around;
+    text-decoration: underline;
+    background-color: burlywood;
 }
 body {
-  background-color: blanchedalmond;
+    background-color: blanchedalmond;
 }
-    </style>
+</style>
 </head>
-    <body>
-        <h1>The Metropolitan Museum, New York</h1>
+<body>
+    <h1>The Metropolitan Museum, New York</h1>
+    
+    <div id="nav">
+        <ul><a href="#">Home</a></ul>
+        <ul><a href="#">Other Collections</a></ul>
+        <ul><a href="#">Recommended</a></ul>
+        <ul><a href="#">Students</a></ul>
+        <ul><a href="#">Visit</a></ul>
+    </div>
 
-        <div id="container"> 
-            <div id="painting">This piece is loading...</div>
-            <p id="title">Title</p>
-            <p id="artist">Artist</p>
-        </div>
-    </body>
+    <div id="container"> 
+        <div id="painting">This piece is loading...</div>
+        <p id="title">Title</p>
+        <p id="artist">Artist</p>
+        <p><a href="#">&#60;&nbsp;Back</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="#">Next&nbsp;&#62;</a></p>
+    </div>
+</body>
 </html>
