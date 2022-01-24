@@ -5,6 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Met API</title>
+
+    <script>
+// async javascript to grab link
+
+// https://collectionapi.metmuseum.org/public/collection/v1/objects/436121
+
+
+// return metData, populate DOM
+const getData = async () => {
+    console.log("Querying the system. Please stand by...");
+    const request = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/objects/436121');
+    const metData = await request.json();
+    return metData;
+}
+getData();
+    </script>
+
 </head>
 <body>
     TEST
