@@ -19,7 +19,11 @@ const getData = async () => {
     const metData = await request.json();
     return metData;
 }
-getData();
+
+getData()
+    .then(metData => {
+        console.log("Here's the API data you requested: ", metData);
+    });
     </script>
 
 </head>
