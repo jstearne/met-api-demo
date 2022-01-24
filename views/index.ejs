@@ -7,37 +7,28 @@
     <title>Met API</title>
 
     <script>
-// async javascript to grab link
+    // https://collectionapi.metmuseum.org/public/collection/v1/objects/436121
 
-// https://collectionapi.metmuseum.org/public/collection/v1/objects/436121
+    const getData = async () => {
+        console.log("Querying the system. Please stand by...");
+        const request = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/objects/436121');
+        const metData = await request.json();
+        return metData;
+    }
 
-
-// return metData, populate DOM
-const getData = async () => {
-    console.log("Querying the system. Please stand by...");
-    const request = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/objects/436121');
-    const metData = await request.json();
-    return metData;
-}
-
-getData()
-    .then(metData => {
-        console.log("Here's the API data you requested: ", metData);
-        console.log(metData.title);
-        console.log(metData.artistDisplayName);
-        document.getElementById("title").innerText = metData.title;
-        document.getElementById("artist").innerText = metData.artistDisplayName;
-    });
-
-    // artist = metData.artistDisplayName
-    // title = metData.title
-    // image = primaryImage (?)
+    getData()
+        .then(metData => {
+            console.log("Here's the API data you requested: ", metData);
+            document.getElementById("title").innerText = metData.title;
+            document.getElementById("artist").innerText = metData.artistDisplayName;
+            document.getElementById("painting").innerHTML = `<img src="${metData.primaryImage}">` ;
+        });
     </script>
 
 </head>
 <body>
     <h1>Welcome to the eMet</h1>
-
+    <div id="painting">Painting Here</div>
     <div id="title">Your Title Here</div>
     <div id="artist">Your Artist Here</div>
 </body>
