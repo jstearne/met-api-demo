@@ -25,7 +25,8 @@ getData()
         console.log("Here's the API data you requested: ", metData);
         console.log(metData.title);
         console.log(metData.artistDisplayName);
-        
+        document.getElementById("title").innerText = metData.title;
+        document.getElementById("artist").innerText = metData.artistDisplayName;
     });
 
     // artist = metData.artistDisplayName
