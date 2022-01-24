@@ -16,14 +16,23 @@
     getData()
         .then(metData => {
             console.log("Here's the API data you requested: ", metData);
-            document.getElementById("title").innerText = metData.title;
-            document.getElementById("artist").innerText = metData.artistDisplayName;
+            document.getElementById("title").innerText = '"' + metData.title + '"';
+            document.getElementById("artist").innerText = metData.artistDisplayName + ", " + metData.objectDate;
             document.getElementById("painting").innerHTML = `<img src="${metData.primaryImageSmall}">` ;
         });
     </script>
     <style>
+        
 h1 {
+    text-align: center;    
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+p {
     text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+#title {
+    font-weight: bold;
 }
 #container {
   position: fixed;
@@ -37,7 +46,8 @@ body {
     </style>
 </head>
     <body>
-        <h1>Welcome to the eMet</h1>
+        <h1>The Metropolitan Museum, New York</h1>
+
         <div id="container"> 
             <div id="painting">This piece is loading...</div>
             <p id="title">Title</p>
