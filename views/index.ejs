@@ -7,27 +7,51 @@
     <title>Met API</title>
 
     <script>
-// async javascript to grab link
-
-// https://collectionapi.metmuseum.org/public/collection/v1/objects/436121
-
-
-// return metData, populate DOM
-const getData = async () => {
-    console.log("Querying the system. Please stand by...");
-    const request = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/objects/436121');
-    const metData = await request.json();
-    return metData;
-}
-
-getData()
-    .then(metData => {
-        console.log("Here's the API data you requested: ", metData);
-    });
+    const getData = async () => {
+        console.log("Querying the system. Please stand by...");
+        const request = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/objects/436121');
+        const metData = await request.json();
+        return metData;
+    }
+    getData()
+        .then(metData => {
+            console.log("Here's the API data you requested: ", metData);
+            document.getElementById("title").innerText = '"' + metData.title + '"';
+            document.getElementById("artist").innerText = metData.artistDisplayName + ", " + metData.objectDate;
+            document.getElementById("painting").innerHTML = `<img src="${metData.primaryImageSmall}">` ;
+        });
     </script>
-
+    <style>
+        
+h1 {
+    text-align: center;    
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+p {
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+#title {
+    font-weight: bold;
+}
+#container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+body {
+  background-color: blanchedalmond;
+}
+    </style>
 </head>
-<body>
-    TEST
-</body>
+    <body>
+        <h1>The Metropolitan Museum, New York</h1>
+
+        <div id="container"> 
+            <div id="painting">This piece is loading...</div>
+            <p id="title">Title</p>
+            <p id="artist">Artist</p>
+        </div>
+    </body>
 </html>
